@@ -33,6 +33,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 - Clean Up Resources by Deleting Resource Groups
 
 <h2>Deployment and Configuration Steps</h2>
+<h2>Setting Up Resources in Azure</h2>
 
 <p>
 <img src="https://i.imgur.com/jUB7t0u.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
@@ -200,57 +201,88 @@ Log out of DC-1, then go back to Remote Desktop Connection and input DC-1's Publ
 <h2>Joining Client-1 to mydomain.com</h2>
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/QXuADDn.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Navigate to Azure, then go to "Network Watcher", then click "Topology" from the options on the left hand side, then select the resource group "AD-Lab", then click on "client-1135_z1", which is Client-1's Network Interface Card.
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/FTlxwYz.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Once in Client-1's NIC, click on "DNS Servers" from the left hand side options, then enter the Private IP address of DC-1, then click "Save"
+  
+Navigate to Client-1 Virtual Machine in Azure then click "Restart"
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/NAfCNGz.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Once Client-1 has restarted, remote desktop into Client-1.
+  
+Right click the Windows icon on the bottom left of the desktop then click "System", then click "Rename this PC (advanced) from the right hand side options, then click "Change...", then select the box beside "Domain", then input our domain we created on DC-1 (mydomain.com), then click "OK"
+  
+Then enter the username we created in Active Directory in DC-1 (jane_admin), then enter the password (Password1), then click "OK", then click "OK" again, then allow Client-1 to restart.
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/eNAFncA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+
+<p>
+Remote desktop back into DC-1 and open "Active Directory Users and Computers", then expand "mydomain.com", then click "Computers", then verify that we see Client-1 in the "Computers" container
+</p>
+<br />
+
+<p>
+<img src="https://i.imgur.com/0JIKK2u.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Create a new Organizational Unit (OU) named "_CLIENTS" within the "domain.com" root, then drag Client-1 from the "Computers" container into the new container we just created (_CLIENTS), then say "Yes" to the popup
+</p>
+<br />
+
+<h2>Setting Up Remote Desktop for Non-Administrative Users on Client-1</h2>
+
+<p>
+<img src="https://i.imgur.com/N9Qap1o.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+<p>
+Remote desktop into Client-1 using the username "mydomain.com\jane_admin", then input the password "Password1"
+  
+Right-click the Windows icon on the bottom left of the screen, then click "System", then click "Remote Desktop" from the right-hand side options, then click "Select users that can remotely access this PC", then click "Add...", then enter "domain" into the Enter the object names to select: field, then click "Check Names", then select "Domain Users", then click "OK" on all the prompts
+</p>
+<br />
+
+<h2>Creating Additional Users and Logging Into Client-1 with New User</h2>
+
+<p>
+<img src="https://i.imgur.com/nm87W6H.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+<p>
+Remote desktop back into DC-1 as jane_admin, then open "PowerShell_ISE" as an administrator from the Windows search bar, then open this link https://github.com/joshmadakor1/AD_PS/blob/master/Generate-Names-Create-Users.ps1, then go back to PowerShell, then click "New Script", then paste the contents into the space, then click "Run Script"
+  
+Once the script has finished running, we will have all these new users in Active Directory
+</p>
+<br />
+
+<p>
+<img src="https://i.imgur.com/lAsJIgQ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+<p>
+Open Active Directory Users and Computers, then click the "_EMPLOYEES" container and verify the script made new users. 
+  
+We will use one of these new users to attempt to log into Client-1. We will use the employee "max.muko"
+  
+From your physical machine, remote desktop into Client-1 and log in using "mydomain.com\max.muko" as the username and "Password1" as the password, then click "Yes" to the prompt.
+  
+Congratulations! You have successfully learned to install and use Active Directory using virtual machines in Microsoft Azure.
+  
+
 </p>
 <br />
