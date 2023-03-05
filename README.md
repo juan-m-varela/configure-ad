@@ -6,10 +6,6 @@
 This tutorial outlines the implementation of on-premises Active Directory within Azure Virtual Machines.<br />
 
 
-<h2>Video Demonstration</h2>
-
-- ### [YouTube: How to Deploy on-premises Active Directory within Azure Compute](https://www.youtube.com)
-
 <h2>Environments and Technologies Used</h2>
 
 - Microsoft Azure (Virtual Machines/Compute)
@@ -281,7 +277,10 @@ We will use one of these new users to attempt to log into Client-1. We will use 
   
 From your physical machine, remote desktop into Client-1 and log in using "mydomain.com\max.muko" as the username and "Password1" as the password, then click "Yes" to the prompt.
   
+Make sure to delete the resource groups in Azure when you are finished with the lab.
+  
 Congratulations! You have successfully learned to install and use Active Directory using virtual machines in Microsoft Azure.
+  
   
 
 </p>
